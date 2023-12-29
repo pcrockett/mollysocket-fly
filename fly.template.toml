@@ -1,9 +1,5 @@
-# fly.toml app configuration file generated for mollysocket-fragrant-water-7601 on 2023-12-29T18:50:52+01:00
-#
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
-#
 
-app = "mollysocket-fragrant-water-7601"
 primary_region = "arn"
 
 [build]
