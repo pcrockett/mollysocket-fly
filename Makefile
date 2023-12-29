@@ -1,5 +1,5 @@
 launch:
-	flyctl launch --copy-config --no-public-ips
+	flyctl launch --copy-config --no-public-ips --yes
 .PHONY: launch
 
 deploy:
@@ -9,3 +9,7 @@ deploy:
 ssh:
 	flyctl ssh console
 .PHONY: ssh
+
+status:
+	flyctl status
+.PHONY: status
