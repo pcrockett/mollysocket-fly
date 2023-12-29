@@ -1,4 +1,4 @@
-# fly.toml app configuration file generated for mollysocket-fragrant-water-7601 on 2023-12-27T20:24:04+01:00
+# fly.toml app configuration file generated for mollysocket-fragrant-water-7601 on 2023-12-29T18:28:05+01:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
@@ -8,13 +8,15 @@ primary_region = "arn"
 
 [build]
 
-[http_service]
-  internal_port = 8080
-  force_https = true
-  auto_stop_machines = false
-  auto_start_machines = false
-  min_machines_running = 1
-  processes = ["app"]
+[[mounts]]
+  source = "mollysocket_data"
+  destination = "/app"
+  initial_size = "3GB"
+  auto_extend_size_threshold = 0
+
+[[services]]
+# no network services being provided.
+# we don't even want this app to be accessible from the internet.
 
 [[vm]]
   cpu_kind = "shared"
