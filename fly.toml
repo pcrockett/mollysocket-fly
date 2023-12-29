@@ -7,6 +7,10 @@ app = "mollysocket-fragrant-water-7601"
 primary_region = "arn"
 
 [build]
+  dockerfile = "Dockerfile"
+
+[processes]
+  worker = "mollysocket server"
 
 [[mounts]]
   source = "mollysocket_data"
