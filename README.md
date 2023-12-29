@@ -1,13 +1,13 @@
-## MollySocket Server
+## MollySocket Fly.io Service
 
 Running Signal on an [un-Googled Android fork](https://grapheneos.org/) without push notifications
 is a death sentence for your battery.
 
-Fortunately, there's [Molly](https://molly.im/), a Signal fork that adds extra features to the
-Signal app. It is mostly marketed as "A hardened version of Signal", however the killer feature in
-my opinion is [UnifiedPush](https://unifiedpush.org/) support. UnifiedPush is what allows an app to
-receive proper push notifications _without_ Google Play Services and _without_ absolutely destroying
-your battery life.
+Fortunately, there's [Molly](https://molly.im/), a Signal fork that is mostly marketed as "A
+hardened version of Signal." However the killer feature in my opinion is not the extra security, but
+rather [UnifiedPush](https://unifiedpush.org/) support. UnifiedPush is what allows an app to receive
+proper push notifications _without_ Google Play Services and _without_ absolutely destroying your
+battery life.
 
 This repository shows how to get a low-maintenance, free, [MollySocket](https://github.com/mollyim/mollysocket)
 instance running in "Air Gap mode" on [Fly.io](https://fly.io/). This makes it easy to set up the
@@ -66,8 +66,17 @@ Then on your server run `mollysocket [the-command-you-just-copied-above]`
 At this point, if everything worked, you should be finished. You now have push notifications for
 Signal.
 
-### Assumptions
+### Notes
 
-Fly.io really encourages you to set up your apps with redundancy by default. This configuration does
-NOT do that. Push notifications are not a critical service for me and my users, so I can afford a
-few seconds of downtime every now and then.
+As of this writing, this should be within the limits of the Fly.io free tier.
+
+It also deviates from the usual pattern that most people set up with Fly.io:
+
+* Fly.io really encourages you to set up your apps with redundancy by default. This configuration
+    does NOT do that. Push notifications are not a critical service for me and my users, so I can
+    afford a few seconds of downtime every now and then.
+* Because we're using air gap mode, we have no need to provide an actual Internet-facing service. So
+    the only process that's running is a _worker_ process, and it should be impossible to actually
+    interact with the MollySocket instance besides via `flyctl ssh console`.
+
+TODO: Figure out automatic updates.
