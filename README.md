@@ -61,7 +61,7 @@ make launch
 configure anything at all, except perhaps disabling battery optimization for the app (which should
 in theory have trivial impact on your battery usage).
 
-**Set up Molly:**
+**Install and configure Molly on your Android phone:**
 
 Install the [UnifiedPush flavor of Molly](https://github.com/mollyim/mollyim-android-unifiedpush)
 on your phone and [migrate your Signal account](https://github.com/mollyim/mollyim-android/wiki/Migrating-From-Signal)
