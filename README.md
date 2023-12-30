@@ -1,19 +1,46 @@
 ## MollySocket Fly.io Service
 
 Running Signal on an [un-Googled Android fork](https://grapheneos.org/) without push notifications
-is a death sentence for your battery.
+is a death sentence for your battery. The only way to get notifications from Signal in this case is
+to disable Android's battery optimization for the app and allow it to keep an active connection
+alive at all times. For some reason, Signal isn't good at doing that efficiently, so it'll often
+burn through 50% of your battery in a single day.
 
 Fortunately, there's [Molly](https://molly.im/), a Signal fork that is mostly marketed as "A
 hardened version of Signal." However the killer feature in my opinion is not the extra security, but
 rather [UnifiedPush](https://unifiedpush.org/) support. UnifiedPush is what allows an app to receive
-proper push notifications _without_ Google Play Services and _without_ absolutely destroying your
+proper push notifications without Google Play Services and _also_ without absolutely destroying your
 battery life.
 
-This repository shows how to get a low-maintenance, free, [MollySocket](https://github.com/mollyim/mollysocket)
-instance running in "Air Gap mode" on [Fly.io](https://fly.io/). This makes it easy to set up the
-[UnifiedPush flavor of Molly](https://github.com/mollyim/mollyim-android-unifiedpush).
+Here's an oversimplified, mostly wrong diagram that lays out how the whole system should work:
 
-### Getting Started
+```plaintext
+ ┌────────────────────┐
+ │signal cloud service│
+ └─────────┬──────────┘
+           │ sends notification
+     ┌─────▼─────┐
+     │mollysocket│  <- behaves as "linked device"
+     └─────┬─────┘
+           │ forwards notification
+       ┌───▼───┐
+       │ntfy.sh│    <- UnifiedPush service
+       └───┬───┘
+           │ forwards notification
+      ┌────▼────┐
+      │molly app│
+      └─────────┘
+```
+
+_Side note: Notifications themselves don't contain any sensitive information; their purpose is just
+to wake up Molly, which then handles actually downloading and displaying the notification content._
+
+This repository shows how to get a low-maintenance, free, [MollySocket](https://github.com/mollyim/mollysocket)
+instance running in "Air Gap mode" on [Fly.io](https://fly.io/). It handles the hardest part of the
+diagram above, making it much easier to get the [UnifiedPush flavor of Molly](https://github.com/mollyim/mollyim-android-unifiedpush)
+working properly.
+
+### Getting Molly with UnifiedPush working
 
 **Launch your MollySocket server:**
 
@@ -34,7 +61,7 @@ make launch
 configure anything at all, except perhaps disabling battery optimization for the app (which should
 in theory have trivial impact on your battery usage).
 
-**Set up Molly-FOSS:**
+**Set up Molly:**
 
 Install the [UnifiedPush flavor of Molly](https://github.com/mollyim/mollyim-android-unifiedpush)
 on your phone and [migrate your Signal account](https://github.com/mollyim/mollyim-android/wiki/Migrating-From-Signal)
@@ -53,11 +80,9 @@ Signal Desktop app).
 
 **Establish the connection on your MollySocket server:**
 
-Come back to your git repository you cloned. Run
+Come back to the git repository you cloned. Run
 
 ```bash
-make ssh
-# or alternatively:
 flyctl ssh console
 ```
 
@@ -66,7 +91,7 @@ Then on your server run `mollysocket [the-command-you-just-copied-above]`
 At this point, if everything worked, you should be finished. You now have push notifications for
 Signal.
 
-### Notes
+### Side Notes
 
 As of this writing, this should be within the limits of the Fly.io free tier.
 
@@ -76,7 +101,10 @@ It also deviates from the usual pattern that most people set up with Fly.io:
     does NOT do that. Push notifications are not a critical service for me and my users, so I can
     afford a few seconds of downtime every now and then.
 * Because we're using air gap mode, we have no need to provide an actual Internet-facing service. So
-    the only process that's running is a _worker_ process, and it should be impossible to actually
-    interact with the MollySocket instance besides via `flyctl ssh console`.
+    the only process that's running in Fly.io is a _worker_ process, and it should be impossible to
+    actually interact with the MollySocket instance besides via `flyctl ssh console`.
+
+The [Makefile](Makefile) isn't terribly useful; I just created it to help me remember basic Fly.io
+CLI commands. I'm not a frequent Fly.io user by any stretch of the imagination.
 
 TODO: Figure out automatic updates.
