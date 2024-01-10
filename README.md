@@ -50,7 +50,7 @@ account.
 Then run:
 
 ```bash
-git clone git@github.com:pcrockett/mollysocket-fly.git && cd mollysocket-fly
+git clone https://github.com/pcrockett/mollysocket-fly.git && cd mollysocket-fly
 cp fly.template.toml fly.toml
 make launch
 ```
@@ -93,9 +93,17 @@ Signal.
 
 ### Side Notes
 
-As of this writing, this should be within the limits of the Fly.io free tier.
+**Free tier:**
 
-It also deviates from the usual pattern that most people set up with Fly.io:
+_Never assume a free tier for any service will stay around forever._ However as of January 2024:
+
+This should be within the limits of the Fly.io free tier. You may see some expensive-looking
+"builder" machines in your Fly dashboard, but they are given to you for free. If you do rack up
+some bills while using the service, Fly will also not charge you for anything less than $5.
+
+**This isn't the normal way of doing things:**
+
+The project deviates from the usual pattern that most people set up with Fly.io:
 
 * Fly.io really encourages you to set up your apps with redundancy by default. This configuration
     does NOT do that. Push notifications are not a critical service for me and my users, so I can
@@ -104,7 +112,13 @@ It also deviates from the usual pattern that most people set up with Fly.io:
     the only process that's running in Fly.io is a _worker_ process, and it should be impossible to
     actually interact with the MollySocket instance besides via `flyctl ssh console`.
 
+**The Makefile:**
+
 The [Makefile](Makefile) isn't terribly useful; I just created it to help me remember basic Fly.io
 CLI commands. I'm not a frequent Fly.io user by any stretch of the imagination.
 
-TODO: Figure out automatic updates.
+**Automatic updates:**
+
+This doesn't handle updates for you. You should periodically run `make deploy` to trigger an update.
+Some day I may consider adding some kind of mechanism that does this for you automatically, but I'm
+not 100% sure how that should work.
