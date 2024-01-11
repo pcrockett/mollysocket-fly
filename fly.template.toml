@@ -17,5 +17,5 @@ primary_region = "arn"
 [[vm]]
   cpu_kind = "shared"
   cpus = 1
-  memory_mb = 1024
+  memory = "256mb"
   processes = ["worker"]
