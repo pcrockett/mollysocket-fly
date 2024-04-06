@@ -27,6 +27,11 @@ Here's an oversimplified, mostly wrong diagram that lays out how the whole syste
        │ntfy.sh│    <- UnifiedPush service
        └───┬───┘
            │ forwards notification
+      ┌────▼───┐
+      │ntfy app│    <- UnifiedPush client
+      │on phone│
+      └────┬───┘
+           │ forwards notification
       ┌────▼────┐
       │molly app│
       └─────────┘
@@ -34,6 +39,10 @@ Here's an oversimplified, mostly wrong diagram that lays out how the whole syste
 
 _Side note: Notifications themselves don't contain any sensitive information; their purpose is just
 to wake up Molly, which then handles actually downloading and displaying the notification content._
+
+If you think the above diagram looks like a lot of moving parts that could break, it's good to keep
+in mind that this is generally how Google sets up a stock Android device (instead of `ntfy.sh` you
+have Google Play services, etc.). The only _really_ different piece about this setup is mollysocket.
 
 This repository shows how to get a low-maintenance, free, [MollySocket](https://github.com/mollyim/mollysocket)
 instance running in "Air Gap mode" on [Fly.io](https://fly.io/). It handles the hardest part of the
@@ -58,8 +67,8 @@ make launch
 **Install a UnifiedPush distributor on your Android phone:**
 
 [ntfy](https://f-droid.org/en/packages/io.heckel.ntfy/) is an excellent choice. You don't need to
-configure anything at all, except perhaps disabling battery optimization for the app (which should
-in theory have trivial impact on your battery usage).
+configure anything at all, except perhaps disabling battery optimization for the app (in my
+experience, the ntfy app adds almost zero extra battery drain with optimization disabled).
 
 **Install and configure Molly on your Android phone:**
 
