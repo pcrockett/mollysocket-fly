@@ -86,10 +86,18 @@ Come back to the git repository you cloned. Run
 flyctl ssh console
 ```
 
-Then on your server run `mollysocket [the-command-you-just-copied-above]`
+Then on your server run `mollysocket <the-command-you-just-copied-above>`
 
-At this point, if everything worked, you should be finished. You now have push notifications for
-Signal.
+At this point, if everything worked, you should be finished. Though before you quit your SSH
+session, let's do one last thing:
+
+**Test the connection:**
+
+Run `mollysocket connection list` and find the UUID of the connection you just set up.
+
+Then run `mollysocket connection ping <the-connection-uuid>`
+
+You should see a new Molly notification on your phone. If so, you're all set up!
 
 ### Side Notes
 
