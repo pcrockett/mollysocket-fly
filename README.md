@@ -160,3 +160,13 @@ This doesn't handle updates for you. You should periodically run `make deploy` t
 Some day I may consider adding some kind of mechanism that does this for you automatically, but I'm
 not 100% sure how that should work. See [this issue](https://github.com/pcrockett/mollysocket-fly/issues/10)
 for updates on that topic, and feel free to offer suggestions.
+
+### Disclaimer
+
+I'm going to [quote the upstream MollySocket project](https://github.com/mollyim/mollysocket/?tab=readme-ov-file#disclaimer)
+because I couldn't say it any better:
+
+> This project is NOT sponsored by or affiliated to Signal Messenger or Signal Foundation.
+>
+> The software is produced independently of Signal and carries no guarantee about quality, security
+> or anything else. Use at your own risk.
