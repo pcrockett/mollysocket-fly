@@ -66,15 +66,21 @@ make launch
 
 **Install a UnifiedPush distributor on your Android phone:**
 
-[ntfy](https://f-droid.org/en/packages/io.heckel.ntfy/) is an excellent choice. You don't need to
-configure anything at all, except perhaps disabling battery optimization for the app (in my
-experience, the ntfy app adds almost zero extra battery drain with optimization disabled).
+[ntfy](https://f-droid.org/en/packages/io.heckel.ntfy/) is an excellent choice for a UnifiedPush
+distributor, and it requires no configuration whatsoever. It just needs to be installed and running.
+
+After you install a distributor, disable battery optimization for that app in Android settings.
+Don't worry; In my experience, ntfy has next to zero impact on battery life.
 
 **Install and configure Molly on your Android phone:**
 
 Install the [UnifiedPush flavor of Molly](https://github.com/mollyim/mollyim-android-unifiedpush)
 on your phone and [migrate your Signal account](https://github.com/mollyim/mollyim-android/wiki/Migrating-From-Signal)
 (if necessary).
+
+Also disable battery optimizations for the Molly app. _I'm not 100% sure **why** this is necessary,
+however the upstream MollySocket project recommends it, and it seems to be important in my own
+testing._ And once again don't worry; Molly won't eat your battery like the Signal app.
 
 Once Molly is all set up and running, go into notification settings in Molly and scroll down to the
 bottom.
@@ -108,6 +114,20 @@ Then run `mollysocket connection ping <the-connection-uuid>`
 
 You should see a new Molly notification on your phone. If so, you're all set up!
 
+### Troubleshooting
+
+**The Molly app stops receiving notifications after a while.**
+
+Double-check that battery optimization for both the UnifiedPush distributor AND Molly is disabled.
+If you have already disabled battery optimization, and you're not running some custom Android ROM
+on your phone, check out [dontkillmyapp.com](https://dontkillmyapp.com/) to see if there are
+additional hoops you need to jump through.
+
+If that doesn't resolve the issue, some have reported that re-running `make deploy` after setting
+everything up will solve the problem. If that is true for you, please leave a comment in
+[this issue](https://github.com/pcrockett/mollysocket-fly/issues/8) -- this is a hard issue to
+reproduce, and we could use more feedback from users there.
+
 ### Side Notes
 
 **Free tier:**
@@ -123,11 +143,11 @@ some bills while using the service, Fly will also not charge you for anything le
 The project deviates from the usual pattern that most people set up with Fly.io:
 
 * Fly.io really encourages you to set up your apps with redundancy by default. This configuration
-    does NOT do that. Push notifications are not a critical service for me and my users, so I can
-    afford a few seconds of downtime every now and then.
+  does NOT do that. Push notifications are not a critical service for me and my users, so I can
+  afford a few seconds of downtime every now and then.
 * Because we're using air gap mode, we have no need to provide an actual Internet-facing service. So
-    the only process that's running in Fly.io is a _worker_ process, and it should be impossible to
-    actually interact with the MollySocket instance besides via `flyctl ssh console`.
+  the only process that's running in Fly.io is a _worker_ process, and it should be impossible to
+  actually interact with the MollySocket instance besides via `flyctl ssh console`.
 
 **The Makefile:**
 
@@ -138,4 +158,5 @@ CLI commands. I'm not a frequent Fly.io user by any stretch of the imagination.
 
 This doesn't handle updates for you. You should periodically run `make deploy` to trigger an update.
 Some day I may consider adding some kind of mechanism that does this for you automatically, but I'm
-not 100% sure how that should work.
+not 100% sure how that should work. See [this issue](https://github.com/pcrockett/mollysocket-fly/issues/10)
+for updates on that topic, and feel free to offer suggestions.
