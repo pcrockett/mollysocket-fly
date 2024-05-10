@@ -13,3 +13,7 @@ ssh:
 status:
 	flyctl status
 .PHONY: status
+
+logs:
+	flyctl logs --no-tail
+.PHONY: logs

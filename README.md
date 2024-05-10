@@ -117,6 +117,10 @@ You should see a new Molly notification on your phone. If so, you're all set up!
 
 ### Troubleshooting
 
+If the following doesn't help you, do feel free to
+[file an issue](https://github.com/pcrockett/mollysocket-fly/issues). If you include the output of
+`make logs` in your issue description, that would be very helpful.
+
 **The Molly app stops receiving notifications after a while.**
 
 Double-check that battery optimization for both the UnifiedPush distributor AND Molly is disabled.
