@@ -70,7 +70,8 @@ make launch
 distributor, and it requires no configuration whatsoever. It just needs to be installed and running.
 
 After you install a distributor, disable battery optimization for that app in Android settings.
-Don't worry; In my experience, ntfy has next to zero impact on battery life.
+Don't worry; In my experience, ntfy has next to zero impact on battery life when on WiFi, and is
+significantly better than Signal when on mobile data connections.
 
 **Install and configure Molly on your Android phone:**
 
