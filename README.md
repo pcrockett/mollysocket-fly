@@ -66,12 +66,13 @@ make launch
 
 **Install a UnifiedPush distributor on your Android phone:**
 
-[ntfy](https://f-droid.org/en/packages/io.heckel.ntfy/) is an excellent choice for a UnifiedPush
-distributor, and it requires no configuration whatsoever. It just needs to be installed and running.
+I recommend installing [ntfy](https://f-droid.org/en/packages/io.heckel.ntfy/) as a
+[UnifiedPush distributor](https://unifiedpush.org/users/distributors/), and it requires no
+configuration whatsoever. It just needs to be installed and running.
 
-After you install a distributor, disable battery optimization for that app in Android settings.
-Don't worry; In my experience, ntfy has next to zero impact on battery life when on WiFi, and is
-significantly better than Signal when on mobile data connections.
+Disable battery optimization for ntfy in Android settings. Don't worry; In my experience, ntfy has
+next to zero impact on battery life when on WiFi, and is significantly better than Signal when on
+mobile data connections.
 
 **Install and configure Molly on your Android phone:**
 
@@ -104,16 +105,21 @@ flyctl ssh console
 
 Then on your server run `mollysocket <the-command-you-just-copied-above>`
 
-At this point, if everything worked, you should be finished. Though before you quit your SSH
-session, let's do one last thing:
-
 **Test the connection:**
 
 Run `mollysocket connection list` and find the UUID of the connection you just set up.
 
 Then run `mollysocket connection ping <the-connection-uuid>`
 
-You should see a new Molly notification on your phone. If so, you're all set up!
+You should see a new Molly notification on your phone. Almost done!
+
+**Restart the server:**
+
+Run `exit` to exit the SSH session and come back to your local machine. Run `flyctl deploy`. This
+will restart the MollySocket server, which will cause MollySocket to begin monitoring the Signal
+service for notifications.
+
+If everything is working, then you're done!
 
 ### Troubleshooting
 
@@ -123,15 +129,17 @@ If the following doesn't help you, do feel free to
 
 **The Molly app stops receiving notifications after a while.**
 
+If you recently added a new connection to your MollySocket server, restart the server with
+`flyctl deploy` if you haven't already.
+
 Double-check that battery optimization for both the UnifiedPush distributor AND Molly is disabled.
 If you have already disabled battery optimization, and you're not running some custom Android ROM
 on your phone, check out [dontkillmyapp.com](https://dontkillmyapp.com/) to see if there are
-additional hoops you need to jump through.
+additional hoops you need to jump through to prevent your phone from killing apps.
 
-If that doesn't resolve the issue, some have reported that re-running `make deploy` after setting
-everything up will solve the problem. If that is true for you, please leave a comment in
-[this issue](https://github.com/pcrockett/mollysocket-fly/issues/8) -- this is a hard issue to
-reproduce, and we could use more feedback from users there.
+If you chose to use a UnifiedPush distributor other than `ntfy`, it very well
+[may stop working](https://github.com/mollyim/mollysocket/issues/35#issuecomment-2105094828). Try
+switching to `ntfy` (at least temporarily) to see if it resolves the problem.
 
 ### Side Notes
 
