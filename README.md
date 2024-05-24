@@ -105,13 +105,11 @@ flyctl ssh console
 
 Then on your server run `mollysocket <the-command-you-just-copied-above>`
 
-**Test the connection:**
+You should see a new Molly notification on your phone:
 
-Run `mollysocket connection list` and find the UUID of the connection you just set up.
+> This is a test notification received from your MollySocket server.
 
-Then run `mollysocket connection ping <the-connection-uuid>`
-
-You should see a new Molly notification on your phone. Almost done!
+Almost done!
 
 **Restart the server:**
 
