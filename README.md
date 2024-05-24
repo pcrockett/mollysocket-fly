@@ -51,6 +51,9 @@ working properly.
 
 ### Getting Molly with UnifiedPush working
 
+_If you want your MollySocket server to update automatically, see [AUTOUPDATE](doc/AUTOUPDATE.md)
+before you start going through these steps._
+
 **Launch your MollySocket server:**
 
 Set up a Fly.io account and install the CLI. You may also need to associate a credit card with that
@@ -165,12 +168,10 @@ The project deviates from the usual pattern that most people set up with Fly.io:
 The [Makefile](Makefile) isn't terribly useful; I just created it to help me remember basic Fly.io
 CLI commands. I'm not a frequent Fly.io user by any stretch of the imagination.
 
-**Automatic updates:**
+**Software updates:**
 
-This doesn't handle updates for you. You should periodically run `make deploy` to trigger an update.
-Some day I may consider adding some kind of mechanism that does this for you automatically, but I'm
-not 100% sure how that should work. See [this issue](https://github.com/pcrockett/mollysocket-fly/issues/10)
-for updates on that topic, and feel free to offer suggestions.
+If you didn't follow the instructions in [AUTOUPDATE](doc/AUTOUPDATE.md), then you should
+periodically run `make deploy` to trigger an update.
 
 ### Disclaimer
 
