@@ -1,4 +1,4 @@
-launch:
+launch: fly.toml
 	flyctl launch --copy-config --no-public-ips --yes
 .PHONY: launch
 
@@ -17,3 +17,6 @@ status:
 logs:
 	flyctl logs --no-tail
 .PHONY: logs
+
+fly.toml:
+	cp fly.template.toml fly.toml

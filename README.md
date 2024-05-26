@@ -1,152 +1,29 @@
-## MollySocket Fly.io Service
+# MollySocket Fly.io Service
 
-Running Signal on an [un-Googled Android fork](https://grapheneos.org/) without push notifications
-is a death sentence for your battery. The only way to get notifications from Signal in this case is
-to disable Android's battery optimization for the app and allow it to keep an active connection
-alive at all times. For some reason, Signal isn't good at doing that efficiently, so it'll often
-burn through 50% of your battery in a single day.
+Get Signal push notifications without Google Play Services, and without killing your phone's
+battery. A secure, free, low-maintenance solution using [Fly.io](https://fly.io).
 
-Fortunately, there's [Molly](https://molly.im/), a Signal fork that is mostly marketed as "A
-hardened version of Signal." However the killer feature in my opinion is not the extra security, but
-rather [UnifiedPush](https://unifiedpush.org/) support. UnifiedPush is what allows an app to receive
-proper push notifications without Google Play Services and _also_ without absolutely destroying your
-battery life.
+**Table of Contents:**
 
-Here's an oversimplified, mostly wrong diagram that lays out how the whole system should work:
+* [What we're building and why](doc/WHAT_WHY.md)
+* [Getting Molly with UnifiedPush working](doc/HOWTO.md)
+* [Troubleshooting](doc/TROUBLESHOOTING.md)
 
-```plaintext
- ┌────────────────────┐
- │signal cloud service│
- └─────────┬──────────┘
-           │ sends notification
-     ┌─────▼─────┐
-     │mollysocket│  <- behaves as "linked device"
-     └─────┬─────┘
-           │ forwards notification
-       ┌───▼───┐
-       │ntfy.sh│    <- UnifiedPush service
-       └───┬───┘
-           │ forwards notification
-      ┌────▼───┐
-      │ntfy app│    <- UnifiedPush client
-      │on phone│
-      └────┬───┘
-           │ forwards notification
-      ┌────▼────┐
-      │molly app│
-      └─────────┘
-```
+## Disclaimer
 
-_Side note: Notifications themselves don't contain any sensitive information; their purpose is just
-to wake up Molly, which then handles actually downloading and displaying the notification content._
+I'm going to [quote the upstream MollySocket project](https://github.com/mollyim/mollysocket/?tab=readme-ov-file#disclaimer)
+because I couldn't say it any better:
 
-If you think the above diagram looks like a lot of moving parts that could break, it's good to keep
-in mind that this is generally how Google sets up a stock Android device (instead of `ntfy.sh` you
-have Google Play services, etc.). The only _really_ different piece about this setup is mollysocket.
+> This project is NOT sponsored by or affiliated to Signal Messenger or Signal Foundation.
+>
+> The software is produced independently of Signal and carries no guarantee about quality, security
+> or anything else. Use at your own risk.
 
-This repository shows how to get a low-maintenance, free, [MollySocket](https://github.com/mollyim/mollysocket)
-instance running in "Air Gap mode" on [Fly.io](https://fly.io/). It handles the hardest part of the
-diagram above, making it much easier to get the [UnifiedPush flavor of Molly](https://github.com/mollyim/mollyim-android-unifiedpush)
-working properly.
-
-### Getting Molly with UnifiedPush working
-
-_If you want your MollySocket server to update automatically, see [AUTOUPDATE](doc/AUTOUPDATE.md)
-before you start going through these steps._
-
-**Launch your MollySocket server:**
-
-Set up a Fly.io account and install the CLI. You may also need to associate a credit card with that
-account.
-
-Then run:
-
-```bash
-git clone https://github.com/pcrockett/mollysocket-fly.git && cd mollysocket-fly
-cp fly.template.toml fly.toml
-make launch
-```
-
-**Install a UnifiedPush distributor on your Android phone:**
-
-I recommend installing [ntfy](https://f-droid.org/en/packages/io.heckel.ntfy/) as a
-[UnifiedPush distributor](https://unifiedpush.org/users/distributors/), and it requires no
-configuration whatsoever. It just needs to be installed and running.
-
-Disable battery optimization for ntfy in Android settings. Don't worry; In my experience, ntfy has
-next to zero impact on battery life when on WiFi, and is significantly better than Signal when on
-mobile data connections.
-
-**Install and configure Molly on your Android phone:**
-
-Install the [UnifiedPush flavor of Molly](https://github.com/mollyim/mollyim-android-unifiedpush)
-on your phone and [migrate your Signal account](https://github.com/mollyim/mollyim-android/wiki/Migrating-From-Signal)
-(if necessary).
-
-Also disable battery optimizations for the Molly app. _I'm not 100% sure **why** this is necessary,
-however the upstream MollySocket project recommends it, and it seems to be important in my own
-testing._ And once again don't worry; Molly won't eat your battery like the Signal app.
-
-Once Molly is all set up and running, go into notification settings in Molly and scroll down to the
-bottom.
-
-1. Select UnifiedPush as the delivery method.
-2. Click on the new UnifiedPush option that appears.
-3. Turn on "air gapped" mode.
-4. Click on "Server parameters" to copy a command to the clipboard.
-
-Send that command to your computer somehow (for example via Signal's "Note to self" feature and the
-Signal Desktop app).
-
-**Establish the connection on your MollySocket server:**
-
-Come back to the git repository you cloned. Run
-
-```bash
-flyctl ssh console
-```
-
-Then on your server run `mollysocket <the-command-you-just-copied-above>`
-
-You should see a new Molly notification on your phone:
-
-> This is a test notification received from your MollySocket server.
-
-Almost done!
-
-**Restart the server:**
-
-Run `exit` to exit the SSH session and come back to your local machine. Run `flyctl deploy`. This
-will restart the MollySocket server, which will cause MollySocket to begin monitoring the Signal
-service for notifications.
-
-If everything is working, then you're done!
-
-### Troubleshooting
-
-If the following doesn't help you, do feel free to
-[file an issue](https://github.com/pcrockett/mollysocket-fly/issues). If you include the output of
-`make logs` in your issue description, that would be very helpful.
-
-**The Molly app stops receiving notifications after a while.**
-
-If you recently added a new connection to your MollySocket server, restart the server with
-`flyctl deploy` if you haven't already.
-
-Double-check that battery optimization for both the UnifiedPush distributor AND Molly is disabled.
-If you have already disabled battery optimization, and you're not running some custom Android ROM
-on your phone, check out [dontkillmyapp.com](https://dontkillmyapp.com/) to see if there are
-additional hoops you need to jump through to prevent your phone from killing apps.
-
-If you chose to use a UnifiedPush distributor other than `ntfy`, it very well
-[may stop working](https://github.com/mollyim/mollysocket/issues/35#issuecomment-2105094828). Try
-switching to `ntfy` (at least temporarily) to see if it resolves the problem.
-
-### Side Notes
+## Side Notes
 
 **Free tier:**
 
-_Never assume a free tier for any service will stay around forever._ However as of January 2024:
+_Never assume a free tier for any service will stay around forever._ However as of May 2024:
 
 This should be within the limits of the Fly.io free tier. You may see some expensive-looking
 "builder" machines in your Fly dashboard, but they are given to you for free. If you do rack up
@@ -167,18 +44,3 @@ The project deviates from the usual pattern that most people set up with Fly.io:
 
 The [Makefile](Makefile) isn't terribly useful; I just created it to help me remember basic Fly.io
 CLI commands. I'm not a frequent Fly.io user by any stretch of the imagination.
-
-**Software updates:**
-
-If you didn't follow the instructions in [AUTOUPDATE](doc/AUTOUPDATE.md), then you should
-periodically run `make deploy` to trigger an update.
-
-### Disclaimer
-
-I'm going to [quote the upstream MollySocket project](https://github.com/mollyim/mollysocket/?tab=readme-ov-file#disclaimer)
-because I couldn't say it any better:
-
-> This project is NOT sponsored by or affiliated to Signal Messenger or Signal Foundation.
->
-> The software is produced independently of Signal and carries no guarantee about quality, security
-> or anything else. Use at your own risk.
