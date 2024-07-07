@@ -112,7 +112,7 @@ Back on your terminal, while you're in your cloned repository, run `flyctl token
 Then populate the `FLY_DEPLOY_TOKEN` repository secret with the output of that command.
 
 At this point GitHub Actions will update your MollySocket instance once per week. If you want to
-configure this, you can edit the [depoly.yml](../.github/workflows/deploy.yml) file.
+configure this, you can edit the [deploy.yml](../.github/workflows/deploy.yml) file.
 
 _You may still want to periodically make sure your forked repository is up-to-date with the latest
 changes here._
