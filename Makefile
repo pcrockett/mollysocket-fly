@@ -19,8 +19,6 @@ logs:
 .PHONY: logs
 
 release:
-	@echo "Recent releases:"
-	@gh release list
 	@gh release create --generate-notes --draft
 .PHONY: release
 
