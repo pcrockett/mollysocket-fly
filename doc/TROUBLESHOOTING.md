@@ -12,17 +12,17 @@ Try restarting the server with `flyctl deploy`.
 
 ### You have too many linked devices:
 
-Signal only allows 3 linked devices per account. MollySocket counts as 1 linked device, so if you've
-linked more than 2 other devices, you risk MollySocket being bumped off and it will never reconnect
+Signal only allows 5 linked devices per account. MollySocket counts as 1 linked device, so if you've
+linked more than 4 other devices, you risk MollySocket being bumped off and it will never reconnect
 again.
 
 To see if this is the case, go into the Molly Android app settings and select _Linked devices_. You
-should see your current Android device in the list, _MollySocket_, and up to 2 other devices.
+should see your current Android device in the list, _MollySocket_, and up to 4 other devices.
 
 If you don't see _MollySocket_ in the list, you know MollySocket has been disconnected. Try these
 steps:
 
-1. If you see 3 or more linked devices in your list, remove one of them by tapping on it.
+1. If you see 5 or more linked devices in your list, remove one of them by tapping on it.
 2. Login to your server with `flyctl ssh console`
 3. Run `mollysocket connection list`. It should output something like this:
    ```plaintext
