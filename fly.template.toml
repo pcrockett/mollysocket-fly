@@ -11,8 +11,10 @@ primary_region = "arn"
 [[mounts]]
   source = "mollysocket_data"
   destination = "/app"
-  initial_size = "3GB"
-  auto_extend_size_threshold = 0
+  initial_size = "1GB"
+  auto_extend_size_threshold = 80  # extend volume size if we reach 80% capacity
+  auto_extend_size_increment = "1GB"
+  auto_extend_size_limit = "3GB"
 
 [[vm]]
   cpu_kind = "shared"
