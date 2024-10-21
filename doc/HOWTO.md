@@ -15,6 +15,7 @@ If any of these steps give you trouble, then check out [Troubleshooting](TROUBLE
 6. [Establish the connection on your MollySocket server](#establish-the-connection-on-your-mollysocket-server)
 7. [Restart the server](#restart-the-server)
 8. [Set up automatic updates](#set-up-automatic-updates)
+9. [Subscribe to mollysocket-fly releases](#subscribe-to-mollysocket-fly-releases)
 
 ### Fork this repository
 
@@ -114,5 +115,11 @@ Then populate the `FLY_DEPLOY_TOKEN` repository secret with the output of that c
 At this point GitHub Actions will update your MollySocket instance once per week. If you want to
 configure this, you can edit the [deploy.yml](../.github/workflows/deploy.yml) file.
 
-_You may still want to periodically make sure your forked repository is up-to-date with the latest
-changes here._
+### Subscribe to mollysocket-fly releases
+
+I periodically update this repository. If you want to keep your configuration up-to-date with the
+latest changes, subscribe to releases on this repository. On [the repository's main page](https://github.com/pcrockett/mollysocket-fly)
+click the _Watch_ button, then _Custom_, then the _Releases_ checkbox.
+
+When any significant changes happen here, we'll cut a new release, and GitHub will notify you. You
+can read the release notes and optionally synchronize your fork with the main repository.
