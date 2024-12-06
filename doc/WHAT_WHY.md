@@ -9,10 +9,10 @@ alive at all times. For some reason, Signal isn't good at doing that efficiently
 burn through 50% of your battery in a single day.
 
 Fortunately, there's [Molly](https://molly.im/), a Signal fork that is mostly marketed as "A
-hardened version of Signal." However the killer feature in my opinion is not the extra security, but
-rather [UnifiedPush](https://unifiedpush.org/) support. UnifiedPush is what allows an app to receive
-proper push notifications without Google Play Services and _also_ without absolutely destroying your
-battery life.
+hardened version of Signal." However the killer feature in my opinion is not the extra security,
+but rather [UnifiedPush](https://unifiedpush.org/) support. UnifiedPush is what allows an app to
+receive proper push notifications without Google Play Services and _also_ without absolutely
+destroying your battery life.
 
 Here's an oversimplified, mostly wrong diagram that lays out how the whole system should work:
 
@@ -44,11 +44,11 @@ to wake up Molly, which then handles actually downloading and displaying the not
 
 If you think the above diagram looks like a lot of moving parts that could break, it's good to keep
 in mind that this is generally how Google sets up a stock Android device (instead of `ntfy.sh` you
-have Google Play services, etc.). The only _really_ different piece about this setup is MollySocket.
+have Google Play services, etc.). The only _really_ different piece about this setup is
+MollySocket.
 
 This repository shows how to get a low-maintenance, free, [MollySocket](https://github.com/mollyim/mollysocket)
 instance running in "Air Gap mode" on [Fly.io](https://fly.io/). It handles the hardest part of the
-diagram above, making it much easier to get the [UnifiedPush flavor of Molly](https://github.com/mollyim/mollyim-android-unifiedpush)
-working properly.
+diagram above, making it much easier to get UnifiedPush for Molly working properly.
 
 Next: [Getting Molly with UnifiedPush working](HOWTO.md)
