@@ -10,6 +10,10 @@ ssh:
 	flyctl ssh console
 .PHONY: ssh
 
+qr:
+	flyctl ssh console --command "mollysocket qr airgapped"
+.PHONY: qr
+
 status:
 	flyctl status
 .PHONY: status

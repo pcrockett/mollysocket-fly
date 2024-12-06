@@ -41,26 +41,6 @@ If this completes successfully, you'll have a new app in Fly.io, plus a new `fly
 file in your current directory. You shouldn't need to edit this file, but it's good to know that it
 exists, and you should definitely keep it around.
 
-### Setup VAPID key for your MollySocket server, and get the QR code
-
-This key is a requirement since the merge of UnifiedPush into the main Molly app.
-
-Open a console, and generate a new VAPID key, and generate the QR code.:
-
-```console
-~/git/mollysocket-fly $ flyctl ssh console
-/app $ mollysocket vapid gen > key
-/app $ MOLLY_VAPID_KEY_FILE=key mollysocket qr air
-/app $ # Taked a screenshot of this QR code, with a white background
-/app $ exit
-```
-
-You can then restart your server:
-
-```console
-~/git/mollysocket-fly $ flyctl deploy
-```
-
 ### Install a UnifiedPush distributor on your Android phone
 
 I recommend installing [ntfy](https://f-droid.org/en/packages/io.heckel.ntfy/) as a
@@ -73,8 +53,8 @@ mobile data connections.
 
 ### Install Molly on your Android phone
 
-[Install the UnifiedPush flavor of Molly](https://github.com/mollyim/mollyim-android-unifiedpush?tab=readme-ov-file#download)
-on your phone and [migrate your Signal account](https://github.com/mollyim/mollyim-android/wiki/Migrating-From-Signal)
+[Install Molly](https://github.com/mollyim/mollyim-android?tab=readme-ov-file#download) on your
+phone and [migrate your Signal account](https://github.com/mollyim/mollyim-android/wiki/Migrating-From-Signal)
 (if necessary).
 
 Also disable battery optimizations for the Molly app. And once again don't worry; Molly won't eat
