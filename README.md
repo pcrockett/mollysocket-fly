@@ -3,18 +3,6 @@
 Get Signal push notifications without Google Play Services, and without killing your phone's
 battery. A secure, free, low-maintenance solution using [Fly.io](https://fly.io).
 
----
-
-**IMPORTANT UPDATE 2024-12-04:** Good news! Unified push has been merged into the main Molly
-app, and the old "unified push" flavor of the app is now deprecated. There also seem to be some
-usability improvements around getting it set up. That said, I don't have time to look into them
-now, so these instructions are now old. In the next few days I'll get around to bringing them
-up-to-date.
-
-See [this issue](https://github.com/pcrockett/mollysocket-fly/issues/15) for more details.
-
----
-
 **Table of Contents:**
 
 * [What we're building and why](doc/WHAT_WHY.md)
