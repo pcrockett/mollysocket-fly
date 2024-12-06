@@ -71,6 +71,10 @@ bottom.
 4. On your phone, click _Scan QR code_. Allow the app to use your camera, and scan the code. _If
    your terminal background is light (what kind of monster are you? 😉) and you have trouble
    scanning the QR code, try running `make qr-invert` instead._
+5. Click on "Server parameters" to copy a command to the clipboard.
+
+Send that command to your computer where you're working somehow (for example via Signal's "Note to
+self" feature and the Signal Desktop app).
 
 ### Establish the connection on your MollySocket server
 
