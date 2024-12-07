@@ -12,7 +12,7 @@ released with a slightly different workflow for getting set up. I recommend that
 1. [Create a new instance of MollySocket](#create-a-new-instance-of-mollysocket)
 2. [Migrate your Android app from the legacy version to Molly-FOSS](#migrating-to-molly-foss)
 3. [Restore MollySocket push notifications](#restore-mollysocket-push-notifications)
-3. [Destroy the old instance of MollySocket](#destroy-the-old-instance-of-mollysocket)
+4. [Destroy the old instance of MollySocket](#destroy-the-old-instance-of-mollysocket)
 
 ### Create a new instance of MollySocket
 
@@ -42,6 +42,9 @@ When the new app is running correctly, you'll need to Restore push notifications
 
 Go through the steps in the instructions starting at
 [step 5: Setup the Molly app for push notifications](HOWTO.md#setup-the-molly-app-for-push-notifications).
+Don't forget to also update your
+[GitHub Actions settings for automatic updates](HOWTO.md#set-up-automatic-updates) so that they
+point to your new MollySocket instance.
 
 _Recommended: Let it run for a while to make sure you continue receiving push notifications._
 
