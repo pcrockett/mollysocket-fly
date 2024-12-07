@@ -53,8 +53,8 @@ mobile data connections.
 
 ### Install Molly on your Android phone
 
-[Install the UnifiedPush flavor of Molly](https://github.com/mollyim/mollyim-android-unifiedpush?tab=readme-ov-file#download)
-on your phone and [migrate your Signal account](https://github.com/mollyim/mollyim-android/wiki/Migrating-From-Signal)
+[Install Molly](https://github.com/mollyim/mollyim-android?tab=readme-ov-file#download) on your
+phone and [migrate your Signal account](https://github.com/mollyim/mollyim-android/wiki/Migrating-From-Signal)
 (if necessary).
 
 Also disable battery optimizations for the Molly app. And once again don't worry; Molly won't eat
@@ -65,10 +65,13 @@ your battery like the Signal app.
 Once Molly is all set up and running, go into notification settings in Molly and scroll down to the
 bottom.
 
-1. Select UnifiedPush as the delivery method.
-2. Click on the new UnifiedPush option that appears.
-3. Turn on "air gapped" mode.
-4. Click on "Server parameters" to copy a command to the clipboard.
+1. Find _Delivery service_ and click on it.
+2. Select _UnifiedPush_. This will bring up a message about scanning a QR code.
+3. Come back to the git repository you cloned. Run `make qr`. This should show you a QR code.
+4. On your phone, click _Scan QR code_. Allow the app to use your camera, and scan the code. _If
+   your terminal background is light (what kind of monster are you? 😉) and you have trouble
+   scanning the QR code, try running `make qr-invert` instead._
+5. Click on "Server parameters" to copy a command to the clipboard.
 
 Send that command to your computer where you're working somehow (for example via Signal's "Note to
 self" feature and the Signal Desktop app).
@@ -78,7 +81,7 @@ self" feature and the Signal Desktop app).
 Come back to the git repository you cloned. Run
 
 ```bash
-flyctl ssh console
+make ssh
 ```
 
 This will open an interactive terminal on your server. Then run
@@ -92,7 +95,7 @@ Almost done! Run `exit` to exit the SSH session and come back to your local mach
 
 ### Restart the server
 
-Run `flyctl deploy`. This will restart the MollySocket server, which will cause MollySocket to begin
+Run `make restart`. This will restart the MollySocket server, which will cause MollySocket to begin
 monitoring the Signal service for notifications.
 
 If everything is working, there's just one thing left to do:

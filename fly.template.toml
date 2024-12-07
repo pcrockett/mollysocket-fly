@@ -6,7 +6,7 @@ primary_region = "arn"
   dockerfile = "Dockerfile"
 
 [processes]
-  worker = "server"
+  worker = "mollysocket server"
 
 [[mounts]]
   source = "mollysocket_data"
