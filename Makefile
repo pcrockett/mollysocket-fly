@@ -37,5 +37,9 @@ release:
 	@gh release create --generate-notes --draft
 .PHONY: release
 
+deploy-token:
+	@flyctl tokens create deploy
+.PHONY: deploy-token
+
 fly.toml:
 	@cp fly.template.toml fly.toml

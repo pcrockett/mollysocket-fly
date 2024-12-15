@@ -8,7 +8,7 @@ If the Molly app stops receiving push notifications, there could be a number of 
 
 ### You forgot to restart / redeploy the MollySocket server after adding your device
 
-Try restarting the server with `flyctl deploy`.
+Try restarting the server with `make deploy`.
 
 ### You have too many linked devices:
 
@@ -23,7 +23,7 @@ If you don't see _MollySocket_ in the list, you know MollySocket has been discon
 steps:
 
 1. If you see 5 or more linked devices in your list, remove one of them by tapping on it.
-2. Login to your server with `flyctl ssh console`
+2. Login to your server with `make ssh`
 3. Run `mollysocket connection list`. It should output something like this:
    ```plaintext
    [src/cli/connection.rs:109:13] &connection = Connection {
@@ -38,7 +38,7 @@ steps:
    }
    ```
 4. Run `mollysocket connection remove <the uuid displayed above>`
-5. Type `exit` and then `flyctl deploy` to restart the server.
+5. Type `exit` and then `make restart` to restart the server.
 6. Re-add the connection as described in the [setup instructions](./HOWTO.md#setup-the-molly-app-for-push-notifications).
 7. Restart the server again
 

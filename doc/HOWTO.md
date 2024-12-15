@@ -112,7 +112,7 @@ Go to your repository settings on GitHub and head over to _Secrets and Variables
 Populate the `FLY_APP` repository secret with the name of the app. This should be toward the top of
 your `fly.toml` file.
 
-Back on your terminal, while you're in your cloned repository, run `flyctl tokens create deploy`.
+Back on your terminal, while you're in your cloned repository, run `make deploy-token`.
 Then populate the `FLY_DEPLOY_TOKEN` repository secret with the output of that command.
 
 At this point GitHub Actions will update your MollySocket instance once per week. If you want to
