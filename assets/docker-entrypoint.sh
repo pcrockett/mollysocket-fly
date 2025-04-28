@@ -16,13 +16,27 @@ healthcheck() {
     sleep 60
 
     while true; do
-        echo "healthcheck: $(
-            wget \
-                --timeout 10 \
-                --no-verbose \
-                --output-document - \
-                "${MOLLY_FLY_HEALTHCHECK_URL}" 2>/dev/null
-        )" || true
+
+        # make sure all connections have "forbidden: false"
+        forbidden_status="$(
+            mollysocket connection list --anonymized 2>&1 \
+            | grep --perl-regexp --only-matching "forbidden: \w+" \
+            | awk '{print $2}' \
+            | sort \
+            | uniq
+        )" || true  # don't want this to crash the healthcheck
+
+        if [ "${forbidden_status}" == "false" ]; then
+            echo "healthcheck: $(
+                wget \
+                    --timeout 10 \
+                    --no-verbose \
+                    --output-document - \
+                    "${MOLLY_FLY_HEALTHCHECK_URL}" 2>/dev/null
+            )" || true
+        else
+            echo "healthcheck: unhealthy connection detected"
+        fi
 
         sleep "${MOLLY_FLY_HEALTHCHECK_INTERVAL:-300}" # default 5 min
     done
