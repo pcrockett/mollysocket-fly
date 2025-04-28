@@ -14,8 +14,9 @@ If any of these steps give you trouble, then check out [Troubleshooting](TROUBLE
 5. [Setup the Molly app for push notifications](#setup-the-molly-app-for-push-notifications)
 6. [Establish the connection on your MollySocket server](#establish-the-connection-on-your-mollysocket-server)
 7. [Restart the server](#restart-the-server)
-8. [Set up automatic updates](#set-up-automatic-updates)
-9. [Subscribe to mollysocket-fly releases](#subscribe-to-mollysocket-fly-releases)
+8. [Set up automatic updates (recommended)](#set-up-automatic-updates-recommended)
+9. [Set up healthcheck (optional)](#set-up-healthcheck-optional)
+10. [Subscribe to mollysocket-fly releases (recommended)](#subscribe-to-mollysocket-fly-releases-recommended)
 
 ### Fork this repository
 
@@ -101,7 +102,7 @@ MollySocket to begin monitoring the Signal service for notifications.
 
 If everything is working, there's just one thing left to do:
 
-### Set up automatic updates
+### Set up automatic updates (recommended)
 
 Go to your repository's GitHub Actions tab
 (`https://github.com/${GITHUB_USERNAME}/mollysocket-fly/actions`) and click the big
@@ -122,7 +123,37 @@ At this point GitHub Actions will update your MollySocket instance once per week
 want to configure this, you can edit the [deploy.yml](../.github/workflows/deploy.yml)
 file.
 
-### Subscribe to mollysocket-fly releases
+### Set up healthcheck (optional)
+
+It's always good to monitor your services to make sure they don't silently die without
+you knowing. This project includes a heartbeat-style healthcheck process that:
+
+1. ensures all your MollySocket connections are healthy
+2. sends an HTTP request to a designated URL if everything is OK
+
+_Notice this healthcheck does **not** send alerts when it detects errors._ Why? Because
+there are a million ways for things to go wrong that you can't actively alert for (such
+as your server crashing and everything just stops running). It's more effective to send
+a heartbeat to an alerting service when everything is **OK**, and then rely on that
+service to alert you when it stops receiving heartbeats from your server.
+
+By default, the healthcheck sends a heartbeat every 5 minutes. This can be configured.
+
+1. Sign up for a health check / cron monitoring service like
+   [healthchecks.io](https://healthchecks.io/). Other similar services exist, but this
+   is what I personally use, and it has a good free tier.
+2. Within healthchecks.io, create a new monitor that expects a heartbeat HTTP request
+   every 5 minutes. Give it a grace period of 10 to 20 minutes. This will allow
+   occasional heartbeat requests to fail, as they sometimes do, for up to 20 minutes
+   before it starts alerting you.
+3. healthchecks.io should give you a URL that you can copy. Copy it, run
+   `make healthcheck`, and paste the URL into the terminal.
+
+This will restart your server, and you should receive your first heartbeat a minute
+after the server starts running again. Now if something on your server goes wrong,
+you'll get an email from healthchecks.io.
+
+### Subscribe to mollysocket-fly releases (recommended)
 
 I periodically update this repository. If you want to keep your configuration up-to-date
 with the latest changes, subscribe to releases on this repository. On [the repository's
