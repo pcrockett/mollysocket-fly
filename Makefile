@@ -41,5 +41,9 @@ deploy-token:
 	@flyctl tokens create deploy
 .PHONY: deploy-token
 
+healthcheck:
+	@./bin/set-secret.sh MOLLY_FLY_HEALTHCHECK_URL
+.PHONY: healthcheck
+
 fly.toml:
 	@cp fly.template.toml fly.toml

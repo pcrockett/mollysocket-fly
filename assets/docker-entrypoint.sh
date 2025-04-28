@@ -7,8 +7,23 @@ gen_vapid_key() {
 }
 
 healthcheck() {
+    # periodically ping a healthcheck URL. this should stop running if the mollysocket
+    # process stops running, since `supervise` kills processes after the first one
+    # exits.
+
+    # we don't want to ping right away; let mollysocket run for a minute before
+    # starting the loop.
+    sleep 60
+
     while true; do
-        curl -SsL "${MOLLY_FLY_HEALTHCHECK_URL}" || true
+        echo "healthcheck: $(
+            wget \
+                --timeout 10 \
+                --no-verbose \
+                --output-document - \
+                "${MOLLY_FLY_HEALTHCHECK_URL}" 2>/dev/null
+        )" || true
+
         sleep "${MOLLY_FLY_HEALTHCHECK_INTERVAL:-300}" # default 5 min
     done
 }
@@ -18,18 +33,25 @@ supervise() {
     # see article for full line-by-line explanation
     trap 'true' SIGINT SIGTERM
     if [ "${MOLLY_FLY_HEALTHCHECK_URL:-}" != "" ]; then
+        echo "starting healthcheck..."
         healthcheck &
     fi
+
     exec "${@}" &
     wait -n || true
-    kill -s SIGINT -1
+    echo "shutting down..."
+
+    # send SIGINT to all processes in this process group
+    pkill -SIGINT --pgroup $$
+
     wait
+    return 1  # non-zero exit code makes fly restart the container
 }
 
 main() {
     test -f "${MOLLY_VAPID_KEY_FILE}" || gen_vapid_key
 
-    if [ "${1:-}" == "$(command -v mollysocket)" ] && [ "${2:-}" == "server" ]; then
+    if [ "${1:-}" == "mollysocket" ] && [ "${2:-}" == "server" ]; then
         # docker container is starting normally; run healthcheck and server together.
         # (assuming healthcheck is configured)
         supervise "${@}"
