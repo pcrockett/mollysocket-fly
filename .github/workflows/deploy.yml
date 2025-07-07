@@ -1,3 +1,5 @@
+# yaml-language-server: $schema=https://www.schemastore.org/github-workflow.json
+
 name: Deploy
 
 on:
@@ -10,11 +12,13 @@ permissions:
 
 jobs:
   deploy:
+    timeout-minutes: 30
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
     - uses: superfly/flyctl-actions/setup-flyctl@1.5
-    - run: |
+    - name: flyctl deploy
+      run: |
         for _ in 1 2; do
           flyctl deploy \
             --app "${{ secrets.FLY_APP }}" \
