@@ -27,13 +27,14 @@ healthcheck() {
         )" || true  # don't want this to crash the healthcheck
 
         if [ "${forbidden_status}" == "false" ]; then
-            echo "healthcheck: $(
+            ping_result="$(
                 wget \
                     --timeout 10 \
                     --no-verbose \
                     --output-document - \
-                    "${MOLLY_FLY_HEALTHCHECK_URL}" 2>/dev/null
-            )" || true
+                    "${MOLLY_FLY_HEALTHCHECK_URL}" 2>/dev/null || true
+            )"
+            test "${ping_result}" == "OK" || echo "healthcheck: ${ping_result}"
         else
             echo "healthcheck: unhealthy connection detected"
         fi
