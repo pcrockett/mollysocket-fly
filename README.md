@@ -23,6 +23,17 @@ because I couldn't say it any better:
 
 ## Side Notes
 
+**Air-gapped mode:**
+
+This project uses the MollySocket server in air-gapped mode. This is a tradeoff
+decision: On the one hand, it makes initial setup a little bit more manual. On the other
+hand, it avoids needing to expose a web service to the world (or to a VPN). This is a
+big advantage, both in terms of security and maintenance.
+
+While this works just fine, the upstream MollySocket project considers this to be an
+exceptional use-case. If you plan to onboard lots of devices fairly frequently, this
+project is probably not for you.
+
 **Donations:**
 
 You can certainly [buy me a muffin on Ko-fi](https://ko-fi.com/pcrockett) for the little

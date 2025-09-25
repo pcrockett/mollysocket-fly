@@ -52,8 +52,16 @@ If you have already disabled battery optimization, and you're not running some c
 on your phone, check out [dontkillmyapp.com](https://dontkillmyapp.com/) to see if there are
 additional hoops you need to jump through to prevent your phone from killing apps.
 
-### You are using a wonky UnifiedPush distributor app
+### You are using a UnifiedPush distributor app that isn't compatible with air-gapped mode
 
-If you chose to use a UnifiedPush distributor other than `ntfy`, it very well
-[may stop working](https://github.com/mollyim/mollysocket/issues/35#issuecomment-2105094828). Try
-switching to `ntfy` (at least temporarily) to see if it resolves the problem.
+Most UnifiedPush distributor apps should work fine the way we have things set up.
+However some apps might be configured to rotate UnifiedPush endpoints occasionally, and
+since we're using MollySocket in air-gapped mode, there's no way to tell MollySocket to
+update its configuration when that happens. So things silently stop working.
+
+Here are some things you can try if this happens:
+
+* see if you can configure your distributor app to avoid rotating endpoints
+* switch to a known-compatible distributor app like `ntfy`
+* avoid using this repository, and instead setup MollySocket as a proper
+  Internet-accessible web service (that is, _not_ using air-gapped mode)
