@@ -6,7 +6,7 @@ BLACK_FOREGROUND='\033[47m'
 WHITE_BACKGROUND='\033[0;30m'
 
 main() {
-    echo -e "
+  echo -e "
 ${WHITE_BACKGROUND}${BLACK_FOREGROUND}
 $(mollysocket qr airgapped)
 ${RESET}

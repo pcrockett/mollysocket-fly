@@ -11,9 +11,9 @@ set -euo pipefail
 # your service with that environment variable set.
 
 main() {
-    local secret
-    read -rp "Enter value for $1: " secret
-    flyctl secrets import <<EOF
+  local secret
+  read -rp "Enter value for $1: " secret
+  flyctl secrets import <<EOF
 $1=${secret}
 EOF
 }
