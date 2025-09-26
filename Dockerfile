@@ -1,7 +1,12 @@
 # hadolint ignore=DL3007
 FROM ghcr.io/mollyim/mollysocket:latest
 
-RUN apt-get update && apt-get install --yes --no-install-recommends procps
+# hadolint ignore=DL3008
+RUN \
+apt-get update && \
+apt-get install --yes --no-install-recommends procps && \
+apt-get clean && \
+rm -rf /var/lib/apt/lists/*
 
 ENV MOLLY_WEBSERVER=false \
     MOLLY_VAPID_KEY_FILE=vapid.key \
