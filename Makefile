@@ -6,6 +6,10 @@ deploy:
 	@flyctl deploy
 .PHONY: deploy
 
+lint:
+	pre-commit run --all
+.PHONY: lint
+
 ssh:
 	@flyctl ssh console
 .PHONY: ssh
