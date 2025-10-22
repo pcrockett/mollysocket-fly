@@ -4,7 +4,7 @@ FROM ghcr.io/mollyim/mollysocket:latest
 # hadolint ignore=DL3008
 RUN \
 apt-get update && \
-apt-get install --yes --no-install-recommends procps && \
+apt-get install --yes --no-install-recommends procps htop && \
 apt-get clean && \
 rm -rf /var/lib/apt/lists/*
 
