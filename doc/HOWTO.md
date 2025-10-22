@@ -33,7 +33,7 @@ card with that account.
 Then clone your repository and create your Fly.io app:
 
 ```bash
-git clone git@github.com:${GITHUB_USERNAME}/mollysocket-fly.git
+git clone https://github.com/${GITHUB_USERNAME}/mollysocket-fly.git
 cd mollysocket-fly
 make launch
 ```
