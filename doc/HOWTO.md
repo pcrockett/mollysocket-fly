@@ -116,8 +116,9 @@ head over to _Secrets and Variables_ -> _Actions_
 Click _New repository secret_. Give it the name `FLY_APP` and set it to the name of the
 app found toward the top of your `fly.toml` file.
 
-Back on your terminal, while you're in your cloned repository, run `make deploy-token`.
-Then populate the `FLY_DEPLOY_TOKEN` repository secret with the output of that command.
+Once that secret is created, create one more repository secret called
+`FLY_DEPLOY_TOKEN`. Back on your terminal, while you're in your cloned repository, run
+`make deploy-token`. Copy / paste the output of that command into the secret.
 
 At this point GitHub Actions will update your MollySocket instance once per week. If you
 want to configure this, you can edit the [deploy.yml](../.github/workflows/deploy.yml)
