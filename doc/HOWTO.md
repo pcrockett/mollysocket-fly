@@ -112,10 +112,9 @@ the workflows to make sure I'm not doing anything nasty to you._
 
 Go to your repository settings on GitHub and
 head over to _Secrets and Variables_ -> _Actions_
-(`https://github.com/${GITHUB_USERNAME}/mollysocket-fly/settings/secrets/actions`)
-
-Populate the `FLY_APP` repository secret with the name of the app. This should be toward
-the top of your `fly.toml` file.
+(`https://github.com/${GITHUB_USERNAME}/mollysocket-fly/settings/secrets/actions`).
+Click _New repository secret_. Give it the name `FLY_APP` and set it to the name of the
+app found toward the top of your `fly.toml` file.
 
 Back on your terminal, while you're in your cloned repository, run `make deploy-token`.
 Then populate the `FLY_DEPLOY_TOKEN` repository secret with the output of that command.
