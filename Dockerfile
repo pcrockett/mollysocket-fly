@@ -15,5 +15,6 @@ ENV MOLLY_WEBSERVER=false \
 
 COPY assets/*.sh /usr/local/bin/
 
+WORKDIR /app
 ENTRYPOINT [ "/usr/local/bin/docker-entrypoint.sh" ]
 CMD [ "/usr/local/bin/mollysocket", "server" ]
