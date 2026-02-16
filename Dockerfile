@@ -1,5 +1,10 @@
 # hadolint ignore=DL3007
-FROM ghcr.io/mollyim/mollysocket:latest
+#
+# We're going to pin to 1.6 for now, until I figure out this issue:
+#
+#     <https://github.com/mollyim/mollysocket/issues/111>
+#
+FROM ghcr.io/mollyim/mollysocket:1.6
 
 # hadolint ignore=DL3008
 RUN \
