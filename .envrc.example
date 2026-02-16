@@ -6,4 +6,4 @@ strict_env
 # If you want to use a specific version of the upstream `mollysocket` project, uncomment
 # the following and set it appropriately:
 #
-# export MOLLYSOCKET_VERISON="1.6"
+# export MOLLYSOCKET_VERSION="1.6"
