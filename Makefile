@@ -1,9 +1,15 @@
+MOLLYSOCKET_VERSION ?= latest
+
 launch: fly.toml
-	@flyctl launch --copy-config --no-public-ips --yes
+	@flyctl launch \
+		--copy-config \
+		--no-public-ips \
+		--build-arg "MOLLYSOCKET_VERSION=$(MOLLYSOCKET_VERSION)" \
+		--yes
 .PHONY: launch
 
 deploy:
-	@flyctl deploy
+	@flyctl deploy --build-arg "MOLLYSOCKET_VERSION=$(MOLLYSOCKET_VERSION)"
 .PHONY: deploy
 
 lint:

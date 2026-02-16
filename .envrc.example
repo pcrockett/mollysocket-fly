@@ -1,0 +1,9 @@
+# shellcheck shell=bash
+strict_env
+
+# For people who use [direnv](https://direnv.net/).
+
+# If you want to use a specific version of the upstream `mollysocket` project, uncomment
+# the following and set it appropriately:
+#
+# export MOLLYSOCKET_VERISON="1.6"
