@@ -11,7 +11,7 @@ rm -rf /var/lib/apt/lists/*
 
 ENV MOLLY_WEBSERVER=false \
     MOLLY_VAPID_KEY_FILE=vapid.key \
-    RUST_LOG=info
+    RUST_LOG="info,mollysocket::config=warn"
 
 COPY assets/*.sh /usr/local/bin/
 
