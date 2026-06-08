@@ -2,7 +2,7 @@
 
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v6.0.0
+    rev: 3e8a8703264a2f4a69428a0aa4dcb512790b2c8c  # frozen: v6.0.0
     hooks:
       # https://github.com/pre-commit/pre-commit-hooks?tab=readme-ov-file#hooks-available
       - id: check-executables-have-shebangs
@@ -13,22 +13,22 @@ repos:
       - id: end-of-file-fixer
       - id: trailing-whitespace
   - repo: https://github.com/rhysd/actionlint
-    rev: v1.7.7
+    rev: 914e7df21a07ef503a81201c76d2b11c789d3fca  # frozen: v1.7.12
     hooks:
       - id: actionlint
   - repo: https://github.com/gitleaks/gitleaks
-    rev: v8.28.0
+    rev: 2ca41cc1372d1e939a6a879f18cdc19fc1cac1ce  # frozen: v8.30.0
     hooks:
       - id: gitleaks
   - repo: https://github.com/hadolint/hadolint
-    rev: v2.14.0
+    rev: 4e697ba704fd23b2409b947a319c19c3ee54d24f  # frozen: v2.14.0
     hooks:
       - id: hadolint-docker
   - repo: https://github.com/koalaman/shellcheck-precommit
-    rev: v0.11.0
+    rev: 99470f5e12208ff0fb17ab81c3c494f7620a1d8d  # frozen: v0.11.0
     hooks:
     - id: shellcheck
   - repo: https://github.com/scop/pre-commit-shfmt
-    rev: v3.12.0-2
+    rev: 05c1426671b9237fb5e1444dd63aa5731bec0dfb  # frozen: v3.13.1-1
     hooks:
       - id: shfmt
