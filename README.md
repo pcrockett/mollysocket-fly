@@ -47,8 +47,8 @@ Seriously. It's nice to know that people find this project to be helpful. A simp
 
 **Fly's free tier:**
 
-_Never assume a free tier for any service will stay around forever._ However as of May
-2024:
+_Never assume a free tier for any service will stay around forever._ However as of June
+2026:
 
 This should be within the limits of the Fly.io free tier. You may see some
 expensive-looking "builder" machines in your Fly dashboard, but they are given to you

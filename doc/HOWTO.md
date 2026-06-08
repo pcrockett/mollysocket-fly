@@ -157,7 +157,7 @@ be configured._
 3. healthchecks.io will generate a URL that you can copy. Copy it, run
    `make healthcheck`, and paste the URL into the terminal.
 
-This will restart your server, and the health check service should receive your first
+This will restart your server, and the healthcheck service should receive your first
 heartbeat a minute after the server starts running again.
 
 Now if your server stops running, or one of your MollySocket connections encounters a
