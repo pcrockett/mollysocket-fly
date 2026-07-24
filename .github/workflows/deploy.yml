@@ -15,10 +15,10 @@ jobs:
     timeout-minutes: 30
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       with:
         persist-credentials: false
-    - uses: pcrockett/setup-fly@ee46f76702e822484bae25e84a71db0e26a86d4f # v0.1.1
+    - uses: pcrockett/setup-fly@db3872f3719b4ead11b0a1f58cf8cc5a49b7b0ac # v0.1.2
     - name: flyctl deploy
       env:
         MOLLYSOCKET_VERSION: ${{ vars.MOLLYSOCKET_VERSION || 'latest' }}
