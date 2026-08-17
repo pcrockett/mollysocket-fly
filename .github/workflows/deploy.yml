@@ -25,12 +25,17 @@ jobs:
         FLY_APP: ${{ secrets.FLY_APP }}
         FLY_API_TOKEN: ${{ secrets.FLY_DEPLOY_TOKEN }}
       run: |
+        STATUS="fail"
         for _ in 1 2; do
-          flyctl deploy \
-            --app "${FLY_APP}" \
-            --config fly.template.toml \
-            --build-arg "MOLLYSOCKET_VERSION=${MOLLYSOCKET_VERSION}" \
-            --remote-only \
-            && break  # break from `for` loop if successful
-          sleep 60  # sleep for 1 minute if failed
+          if flyctl deploy \
+              --app "${FLY_APP}" \
+              --config fly.template.toml \
+              --build-arg "MOLLYSOCKET_VERSION=${MOLLYSOCKET_VERSION}" \
+              --remote-only; then
+            STATUS="success"
+            break  # break from retry loop
+          else
+            sleep 60  # sleep for 1 minute before retrying
+          fi
         done
+        test "${STATUS}" == "success"
