@@ -18,7 +18,7 @@ jobs:
     - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       with:
         persist-credentials: false
-    - uses: pcrockett/setup-fly@db3872f3719b4ead11b0a1f58cf8cc5a49b7b0ac # v0.1.2
+    - uses: pcrockett/setup-fly@929d5f060491e41d1fad3ca03f2eae2794a4fb3f # v0.1.3
     - name: flyctl deploy
       env:
         MOLLYSOCKET_VERSION: ${{ vars.MOLLYSOCKET_VERSION || 'latest' }}
