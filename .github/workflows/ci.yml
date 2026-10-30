@@ -20,7 +20,7 @@ jobs:
         with:
           persist-credentials: false
 
-      - uses: pcrockett/setup-pre-commit@e7e4a210561b1c4114b3a45eddbdc67e39e81f21 # v0.1.2
+      - uses: pcrockett/setup-pre-commit@90e294bdac0418fdec979074854d3019f76f59ea # v0.1.3
       - run: make lint
 
   build:
